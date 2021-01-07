@@ -18,7 +18,7 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 KEY_TO_PEM_CMD = "openssl pkcs12 -nocerts -in %s -out %s -passin pass:%s -passout pass:%s"
-STATES = {"unverified": [("readonly", False),]}
+STATES = {"unverified": [("readonly", False), ]}
 
 
 class SriKeyType(models.Model):

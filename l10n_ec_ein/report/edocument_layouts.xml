@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="einvoice_layout_elec">
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0" />
+            </div>
+        </template>
+
+        <record id="report_edocs_paperformat" model="report.paperformat">
+            <field name="name">Formato Vertical Edocumento</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">2</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+        </record>
+    </data>
+
+      <report
+          id="account_invoices_elec"
+          model="account.move"
+          string="Factura Electronica"
+          report_type="qweb-pdf"
+          name="l10n_ec_reports.report_einvoice_elec"
+          file="l10n_ec_reports.report_einvoice_elec"
+          attachment_use="False"
+          attachment="('FACTURA_'+(object.name or '').replace('/','')+'.pdf')"
+          />
+
+    <record id="account_invoices_elec" model="ir.actions.report">
+        <field name="paperformat_id" ref="report_edocs_paperformat"/>
+    </record>
+</odoo>

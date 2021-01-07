@@ -80,6 +80,7 @@ def check_service(env, url):
             return flag, False
     return flag, res
 
+
 def get_authorisation(type_document):
     map_type = {
                 'out_invoice': '18',

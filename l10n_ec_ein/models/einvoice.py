@@ -19,7 +19,6 @@ from . import edocument
 
 MAP_INVOICE_TYPE_PARTNER_TYPE.update({'liq_purchase': 'supplier'})
 from ..xades.sri import DocumentXML, SriService
-from ..xades.xades import Xades
 import os.path
 from os import path
 
@@ -93,6 +92,7 @@ class Invoice(models.Model):
     def _detalles(self, invoice):
         """
         """
+
         def fix_chars(code):
             special = [
                 [u'%', ' '],
@@ -148,7 +148,7 @@ class Invoice(models.Model):
             'estado': autorizacion.estado,
             'numeroAutorizacion': autorizacion.numeroAutorizacion,
             'ambiente': autorizacion.ambiente,
-            'fechaAutorizacion': str(autorizacion.fechaAutorizacion.strftime("%d/%m/%Y %H:%M:%S")),
+            'fechaAutorizacion': str(autorizacion.fechaAutorizacion),
             'comprobante': autorizacion.comprobante
         }
         auth_invoice = einvoice_tmpl.render(auth_xml)
@@ -170,7 +170,7 @@ class Invoice(models.Model):
             x_path = "/tmp/ComprobantesGenerados/"
             if not path.exists(x_path):
                 os.mkdir(x_path)
-            to_sign_file = open(x_path+'FACTURA_SRI_'+self.name+".xml", 'w')
+            to_sign_file = open(x_path + 'FACTURA_SRI_' + self.name + ".xml", 'w')
             to_sign_file.write(einvoice)
             to_sign_file.close()
             signed_document = xades.action_sign(to_sign_file)
@@ -192,13 +192,12 @@ class Invoice(models.Model):
         ])
 
         for data in to_process:
-
             xml = DocumentXML()
             auth, m = xml.request_authorization(data.sri_authorization_code)
             if not auth:
                 msg = ' '.join(list(itertools.chain(*m)))
                 raise UserError(msg)
-            data.write({'sri_authorization_date': auth['fechaAutorizacion'].strftime("%Y-%m-%d %H:%M:%S")})
+            data.write({'sri_authorization_date': auth['fechaAutorizacion']})
             data.write({'processed': True})
             auth_einvoice = self.render_authorized_einvoice(auth)
             attach = self.add_attachment(auth_einvoice, auth)
@@ -210,16 +209,16 @@ class Invoice(models.Model):
                         ESTADO DE AUTORIZACION: %s <br>
                         AMBIENTE: %s <br>
                         """ % (
-                                auth['numeroAutorizacion'],
-                                auth['numeroAutorizacion'],
-                                auth['fechaAutorizacion'],
-                                auth['estado'],
-                                'PRUEBAS' if self.company_id.env_service == '1' else 'PRODUCCION'
+                auth['numeroAutorizacion'],
+                auth['numeroAutorizacion'],
+                auth['fechaAutorizacion'],
+                auth['estado'],
+                'PRUEBAS' if self.company_id.env_service == '1' else 'PRODUCCION'
             )
-            data.account_move.message_post(body=message, attachments=str(auth))
+            data.account_move.message_post(body=message, attachments=[str(auth), xml])
             data.account_move.send_document(
                 attachments=[a.id for a in attach],
-                tmpl='l10n_ec_ein.email_template_einvoice'
+                tmpl='l10n_ec_reports.email_template_einvoice'
             )
 
     def add_attachment(self, xml_element, auth):
@@ -240,7 +239,7 @@ class Invoice(models.Model):
         tmpl = self.env.ref(tmpl)
         tmpl.send_mail(  # noqa
             self.id,
-            #email_values={'attachment_ids': attachments}
+            email_values={'attachment_ids': attachments}
         )
         self.sent = True
         return True
@@ -273,4 +272,3 @@ class Invoice(models.Model):
         return Template(
             self._read_template(template_path)
         ).substitute(**kwargs)
-

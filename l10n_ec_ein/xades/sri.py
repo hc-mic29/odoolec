@@ -108,7 +108,7 @@ class DocumentXML(object):
             messages.append([m.identificador, m.mensaje,
                              m.tipo, m.informacionAdicional])
         if not autorizacion.estado == 'AUTORIZADO':
-            return False, messages
+            return True, messages
         return autorizacion, messages
 
 
@@ -129,7 +129,7 @@ class SriService(object):
         __AMBIENTE_PRUEBA: __WS_TESTING,
         __AMBIENTE_PROD: __WS_PROD
     }
-    __WS_ACTIVE = __WS_TESTING
+    __WS_ACTIVE = __WS_PROD
 
     @classmethod
     def set_active_env(self, env_service):
@@ -168,7 +168,8 @@ class SriService(object):
         """
         values: tuple ([], [])
         """
-        env = self.get_active_env()
+        # env = self.get_active_env()
+        env = '1'
         dato = ''.join(values[0] + [env])
         modulo = CheckDigit.compute_mod11(dato)
         access_key = ''.join([dato, str(modulo)])

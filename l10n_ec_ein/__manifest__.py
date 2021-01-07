@@ -43,6 +43,8 @@
         'data/code_sri_date.xml',
         'views/sri_sign.xml',
         'edi/einvoice_edi.xml',
+        'report/report_einvoice.xml',
+        'report/edocument_layouts.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

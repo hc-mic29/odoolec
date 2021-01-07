@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_einvoice_elec">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="l10n_ec_reports.einvoice_layout_elec">
+                        <div class="page">
+                            <div style="width:98%;">
+                                <style type="text/css">
+                                    .redondo {
+                                    text-align: left;
+                                    border-style: solid; 
+                                    border-width: 2px;
+                                    border-radius:22px;
+                                    }
+                                </style>	
+                                <table height="120" style="width:100%;">
+                                    <tr>
+                                        <td width="48%" style="vertical-align:top">
+                                            <div>
+                                                <br/>
+                                                 <br/>
+                                            </div>
+                                            <div align="center">
+                                                <!--<img t-if="res_company.logo" t-att-src="'data:image/jpeg;base64,%s' % res_company.logo"/>-->
+                                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 160px;max-width: 240px;" alt="Logo"/>
+                                                <!--<figcaption>
+													Consulte en: <span t-esc="res_company.website"/>
+                                                </figcaption>-->
+                                                <br/>
+                                            </div>
+                                            <div>
+                                                <br/>
+                                                <br/>
+                                            </div>
+                                            <div class="redondo">										
+                                                <table height="200">
+                                                    <tr>
+                                                        <td width="3%"></td>
+                                                        <td width="96%">
+                                                            <h4>
+                                                                <span t-esc="res_company.name"/>
+                                                            </h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="3%"></td>
+                                                        <td width="96%">
+                                                            <span>
+                                                                <strong>Dirección Matriz: </strong>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="3%"></td>
+                                                        <td width="96%">
+                                                            <span t-esc="res_company.street"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="3%"></td>
+                                                        <td width="96%">
+                                                            <p>
+                                                                <span>
+                                                                    <strong>Teléfono: </strong>
+                                                                </span>
+                                                                <span t-esc="res_company.phone"/>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="3%"></td>
+                                                        <td width="96%">
+                                                            <p>
+                                                                <span>
+                                                                    <strong>Obligado a Llevar contabilidad: </strong>SI</span>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="3%"></td>
+                                                        <td width="96%">
+                                                            <span>
+                                                                <strong>Agente de Retención:</strong>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="3%"></td>
+                                                        <td width="96%">
+                                                            <span t-esc="res_company.val_agente_retencion"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                        <td width=" 2%"></td>
+                                        <td width="54%" style="vertical-align:top">
+                                            <div class="redondo">
+                                                <table height="400">
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span>
+                                                                <strong>R.U.C.: </strong>
+                                                            </span>
+                                                            <span t-esc="res_company.vat"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span>
+                                                                <h2>
+                                                                    <strong>FACTURA</strong>
+                                                                </h2>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <h5>
+                                                                <span>
+                                                                    <strong>No. </strong> 
+                                                                </span>
+                                                                <span t-esc="o.name"/>
+                                                            </h5>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span>
+                                                                <strong>Número de Autorización:</strong>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span t-esc="o.sri_authorization.sri_authorization_code"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span>
+                                                                <strong>Fecha y hora de Autorización: </strong>
+                                                            </span>
+                                                            <span t-esc="o.sri_authorization.sri_authorization_date"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span>
+                                                                <strong>Ambiente: </strong>
+                                                            </span>
+                                                            <span t-esc="res_company.env_service == '1' and 'PRUEBAS' or 'PRODUCCION'"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span>
+                                                                <strong>Emisión: </strong>
+                                                                <span>Normal</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%">
+                                                            <span>
+                                                                <strong>Clave de Acceso</strong>
+                                                            </span>
+                                                            <br/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="2%"></td>
+                                                        <td width="98%" style="align: center;">
+                                                            <img style=" width:100%; height:50%;"  t-att-src="'https://barcode.tec-it.com/barcode.ashx?data=%s&amp;humanreadable=1' % (o.sri_authorization.sri_authorization_code or '***********************')"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br/>
+                                <table height="120" style="border: 2px solid black; width:100%;">
+                                    <tr>
+                                        <td width=" 2%"></td>
+                                        <td width="68%"></td>
+                                        <td width="30%"></td>
+                                    </tr>
+                                    <tr>
+                                        <td width=" 2%"></td>
+                                        <td width="68%">
+                                            <strong>Razón Social/Nombres y Apellidos: </strong>
+                                            <span t-esc="o.partner_id.name.upper()"/>
+                                        </td>
+                                        <td width="30%">
+                                            <strong>Identificación: </strong>
+                                            <span t-esc="o.partner_id.vat"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width=" 2%"></td>
+                                        <td width="68%">
+                                            <strong>Fecha de Emisión: </strong>
+                                            <span t-esc="o.invoice_date"/>
+                                        </td>
+                                        <td width="30%">
+                                            <strong></strong>
+                                        </td>
+                                    </tr>
+                                    <!--<tr>
+                                        <td width=" 2%"></td>
+                                        <td width="68%">
+                                            <strong>Dirección: </strong>
+                                            <span t-esc="o.partner_id.street"/>
+                                        </td>
+                                        <td width="30%"></td>
+                                    </tr>-->
+                                </table>
+                                <br/>
+
+                                <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+
+                                <table height="120" style="border: 2px solid black; border-collapse: collapse; width:100%;">
+                                    
+                                    <tr align="center">
+                                        <td width="10%" style="border: 2px solid black;">
+                                            <strong>Cantidad</strong>
+                                        </td>
+                                        <td width=" 6%" style="border: 2px solid black;">
+                                            <strong>Código</strong>
+                                        </td>
+                                        <!--<td width=" 7%" style="border: 2px solid black;">
+                                            <strong>Cod. Auxiliar</strong>
+                                        </td>-->
+                                        <td width="20%" style="border: 2px solid black;">
+                                            <strong>Descripción</strong>
+                                        </td>
+                                        <td width="9%" style="border: 2px solid black;">
+                                            <strong>Detalle Adicional</strong>
+                                        </td>
+                                        <td width=" 8%" style="border: 2px solid black;">
+                                            <strong>Precio Unitario</strong>
+                                        </td>
+                                        <!--<td width="10%" style="border: 2px solid black;">
+                                            <strong>Subsidio</strong>
+                                        </td>
+                                        <td width="10%" style="border: 2px solid black;">
+                                            <strong>Precio sin Subsidio</strong>
+                                        </td>-->
+                                        <td width="10%" style="border: 2px solid black;">
+                                            <strong>Descuento</strong>
+                                        </td>
+                                        <td width="10%" style="border: 2px solid black;">
+                                            <strong>Precio Total</strong>
+                                        </td>
+                                    </tr>
+
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                    <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
+
+                                    <t t-foreach="lines" t-as="line">
+                                        <tr align="center">
+                                            <td width="10%" style="border: 2px solid black;">
+                                                <span t-esc="'%.2f' % line.quantity"/>
+                                            </td>
+                                            <td width=" 6%" style="border: 2px solid black;">
+                                                <span t-esc="line.product_id.default_code"/>
+                                            </td>
+                                            <!--<td width=" 7%" style="border: 2px solid black;">
+                                            </td>-->
+                                            <td width="20%" style="border: 2px solid black;">
+                                                <span t-esc="line.product_id.product_tmpl_id.name"/>
+                                            </td>
+                                            <td width=" 9%" style="border: 2px solid black;">
+                                                <!--<span t-esc="line.product_id.product_tmpl_id.uom_id.name"/>-->
+                                            </td>
+                                            <td width=" 8%" style="border: 2px solid black;"><div align="right">
+                                                <span t-esc="'%.2f' % line.price_unit"/>
+                                            </div></td>
+                                            <!--<td width="10%" style="border: 2px solid black;">
+                                                <font size="2">0.00</font>
+                                            </td>
+                                            <td width="10%" style="border: 2px solid black;">
+                                                <font size="2">0.00</font>
+                                            </td>-->
+                                            <td width="10%" style="border: 2px solid black;">
+                                                <span t-esc="'%.2f' % line.discount"/>
+                                            </td>
+                                            <td width="10%" style="border: 2px solid black;"><div align="right">
+                                                <span t-field="line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>                                          
+                                            </div></td>
+                                        </tr>
+                                    </t>
+                                </table>
+                                <br/>
+                                <table height="120" style="width:100%;">						
+                                    <tr>
+                                        <td width="69%" style="vertical-align:top">
+                                            
+                                            <table height="100" style="border: 2px solid black; width:100%;">						
+                                                <tr>
+                                                    <th width=" 2%"></th>
+                                                    <th width="98%">
+                                                        <span><div align="center">
+                                                            <strong>Información Adicional</strong>
+                                                        </div></span>
+                                                    </th>
+                                                </tr>
+                                                <!--<tr>
+                                                    <td width=" 2%"></td>
+                                                    <td width="98%">
+                                                        <span>
+                                                            <strong>Información: </strong>
+                                                        </span>
+                                                        <span t-esc="o.comment or '**'"/>
+                                                    </td>
+                                                </tr>-->
+                                                <tr>
+                                                    <td width=" 2%"></td>
+                                                    <td width="98%">
+                                                        <span>
+                                                            <strong>Dirección: </strong>
+                                                        </span>
+                                                        <span t-esc="o.partner_id.street or '**'"/>
+                                                    </td>
+                                                </tr>
+                                                <!--<tr>
+                                                    <td width=" 2%"></td>
+                                                    <td width="98%">
+                                                        <span>
+                                                            <strong>Teléfono: </strong>
+                                                        </span>
+                                                        <span t-esc="o.partner_id.phone or '**'"/>
+                                                    </td>
+                                                </tr>-->
+                                                <tr>
+                                                    <td width=" 2%"></td>
+                                                    <td width="98%">
+                                                        <span>
+                                                            <strong>Email: </strong>
+                                                        </span>
+                                                        <span t-esc="o.partner_id.email"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width=" 2%"></td>
+                                        <td width="29%" style="vertical-align:top">
+                                            <table height="50" style="border: 2px solid black; border-collapse: collapse; width:100%;text-align:center;">
+                                                <tr>
+                                                    <td width="55%" style="border: 2px solid black;">
+                                                        <strong> Subtotal 12%</strong>
+                                                    </td>
+                                                    <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                        <font size="2">$ 0.00</font>
+                                                    </div></td>
+                                                </tr>
+                                                <!--<tr>
+                                                    <td width="75%" style="border: 2px solid black;">
+                                                        <strong> Subtotal 0%</strong>
+                                                    </td>
+                                                    <td width="25%" style="border: 2px solid black;">
+                                                        <span t-field="o.amount_vat_cero" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                    </td>
+                                                </tr>-->
+                                                <!--<tr>
+                                                    <td width="75%" style="border: 2px solid black;">
+                                                        <strong> Subtotal no Objeto de IVA</strong>
+                                                    </td>
+                                                    <td width="25%" style="border: 2px solid black;">
+                                                        <span t-field="o.amount_novat" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                    </td>
+                                                </tr>-->
+                                                <tr>
+                                                    <td width="55%" style="border: 2px solid black;">
+                                                        <strong> Subtotal 0%</strong>
+                                                    </td>
+                                                    <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                        <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                    </div></td>                                                    
+                                                </tr>
+                                                <!--<tr>
+                                                    <td width="75%" style="border: 2px solid black;">
+                                                        <strong> Total Descuento</strong>
+                                                    </td>
+                                                    <td width="25%" style="border: 2px solid black;">
+                                                        <span t-esc="o.amount_novat" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                    </td>
+                                                </tr>-->
+                                                <tr>
+                                                    <td width="55%" style="border: 2px solid black;">
+                                                        <strong> ICE</strong>
+                                                    </td>
+                                                    <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                        <font size="2">$ 0.00</font>
+                                                    </div></td>
+                                                </tr>
+                                                <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                                    <tr>
+                                                        <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and o.amount_untaxed == amount_by_group[2]">
+                                                            <td width="55%" style="border: 2px solid black;">
+                                                                <span t-esc="amount_by_group[0]"/>
+                                                            </td>
+                                                            <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                                <span t-esc="amount_by_group[3]" />
+                                                            </div></td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td width="55%" style="border: 2px solid black;">
+                                                                <span t-esc="amount_by_group[0]"/>
+                                                                <span class="text-nowrap"> on
+                                                                    <t t-esc="amount_by_group[4]"/>
+                                                                </span>
+                                                            </td>
+                                                            <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                                <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                                            </div></td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                                <tr>
+                                                    <td width="55%" style="border: 2px solid black;">
+                                                        <strong> IRBPNR</strong>
+                                                    </td>
+                                                    <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                        <font size="2">$ 0.00</font>
+                                                    </div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="55%" style="border: 2px solid black;">
+                                                        <strong> Propina</strong>
+                                                    </td>
+                                                    <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                        <font size="2">$ 0.00</font>
+                                                    </div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="55%" style="border: 2px solid black;">
+                                                        <strong> Valor Total</strong>
+                                                    </td>
+                                                    <td width="45%" style="border: 2px solid black;"><div align="right">
+                                                        <strong>
+                                                            <span t-field="o.amount_residual" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                        </strong>           
+                                                    </div></td>
+                                                </tr>
+                                            </table>
+                                        </td>  
+                                    </tr>       
+                                </table>  
+                                <br/>
+                                <table height="120" style="width:100%;">						
+                                    <tr>
+                                        <td width="69%" style="vertical-align:top">
+                                            <table height="30" style="width:100%; border-collapse: collapse; border: 2px solid black; text-align:center;">
+                                                <tr >
+                                                    <td style="border: 2px solid black;" >										   
+                                                        <font size="2">
+                                                            <span>
+                                                                <strong>Forma de pago</strong>
+                                                            </span>
+                                                        </font>
+                                                    </td>
+                                                    <td style="border: 2px solid black;"> 
+                                                        <font size="2">
+                                                            <span>
+                                                                <strong>Valor</strong>
+                                                            </span>
+                                                        </font>
+                                                    </td>
+                                                </tr>
+                                                <tr >
+                                                    <td style="border: 2px solid black;">
+                                                        <font size="2">
+                                                            <span t-esc="o.sri_payment_type.name"/>
+                                                        </font>
+                                                    </td>
+                                                    <td style="border: 2px solid black;">
+                                                        <font size="2">
+                                                            <span>
+                                                                <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                            </span>
+                                                        </font>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width=" 2%">
+                                        </td>
+                                        <!--<td width="29%" style="vertical-align:top">
+                                            <table height="50" style="border: 2px solid black; width:100%;">
+                                                <tr>
+                                                    <td width=" 2%"></td>
+                                                    <td width="98%">
+                                                        <span>
+                                                            <strong>VALOR TOTAL SIN SUBSIDIO</strong>
+                                                        </span>
+                                                        <span>0.00</span>
+                                                        <br/>
+                                                        <br/>
+                                                        <span>
+                                                            <strong>AHORRO POR SUBSIDIO</strong>
+                                                        </span>
+                                                        <span>0.00</span>
+                                                        <br/>
+                                                        <span>
+                                                            <strong>(Incluye IVA cuando corresponda)</strong>
+                                                        </span>
+                                                        <br/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>-->
+                                    </tr>
+                                </table>
+                                <!--<div align="center">
+                                <strong><i>"DECLARE A TIEMPO SU IMPUESTO A LA RENTA"</i></strong>
+                                </div>-->
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
