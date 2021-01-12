@@ -98,18 +98,21 @@ class DocumentXML(object):
         result = client.service.autorizacionComprobante(access_key)
         # self.logger.debug("Respuesta de autorizacionComprobante:SRI")
         # self.logger.debug(result)
-        autorizacion = result.autorizaciones[0][0]
-        mensajes = autorizacion.mensajes and autorizacion.mensajes[0] or []
-        # self.logger.info('Estado de autorizacion %s' % autorizacion.estado)
-        for m in mensajes:
-            self.logger.error('{0} {1} {2}'.format(
-                m.identificador, m.mensaje, m.tipo, m.informacionAdicional)
-            )
-            messages.append([m.identificador, m.mensaje,
-                             m.tipo, m.informacionAdicional])
-        if not autorizacion.estado == 'AUTORIZADO':
-            return True, messages
-        return autorizacion, messages
+        if result['numeroComprobantes'] != '0':
+            autorizacion = result.autorizaciones[0][0]
+            mensajes = autorizacion.mensajes and autorizacion.mensajes[0] or []
+            # self.logger.info('Estado de autorizacion %s' % autorizacion.estado)
+            for m in mensajes:
+                self.logger.error('{0} {1} {2}'.format(
+                    m.identificador, m.mensaje, m.tipo, m.informacionAdicional)
+                )
+                messages.append([m.identificador, m.mensaje,
+                                 m.tipo, m.informacionAdicional])
+            if not autorizacion.estado == 'AUTORIZADO':
+                return True, messages
+            return autorizacion, messages
+        else:
+            return False, "No autorizado"
 
 
 class SriService(object):

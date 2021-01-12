@@ -5,6 +5,8 @@ class SriAuthorization (models.Model):
     _name = 'sri.authorization'
     _description = 'SRI Authorization'
 
+    company_id = fields.Many2one('res.company', string='Company',
+                                 default=lambda self: self.env.company)
     sri_authorization_code = fields.Char()
     sri_create_date = fields.Datetime()
     sri_authorization_date = fields.Char()
@@ -28,6 +30,8 @@ class SriAuthorization (models.Model):
         string='Environment Type',
         required=False,
     )
+
+    xml_binary = fields.Binary()
 
 
     

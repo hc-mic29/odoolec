@@ -33,7 +33,3 @@ class Company(models.Model):
         required='True',
         default='000'
     )
-
-
-
-

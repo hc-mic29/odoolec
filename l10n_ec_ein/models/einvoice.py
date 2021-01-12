@@ -4,6 +4,7 @@ import logging
 import itertools
 from datetime import datetime
 
+from odoo.addons.account import report
 from odoo.addons.account.models.account_payment import MAP_INVOICE_TYPE_PARTNER_TYPE
 from jinja2 import Environment, FileSystemLoader, Template
 
@@ -175,16 +176,17 @@ class Invoice(models.Model):
             to_sign_file.close()
             signed_document = xades.action_sign(to_sign_file)
             ok, errores = inv_xml.send_receipt(signed_document)
-            if not ok:
-                raise UserError(errores)
+            if ('REGISTRADA') in errores or ok:
 
-            sri_auth = self.env['sri.authorization'].create({
-                'sri_authorization_code': access_key,
-                'sri_create_date': self.write_date,
-                'account_move': self.id,
-                'env_service': self.company_id.env_service
-            })
-            self.write({'sri_authorization': sri_auth.id})
+                sri_auth = self.env['sri.authorization'].create({
+                    'sri_authorization_code': access_key,
+                    'sri_create_date': self.write_date,
+                    'account_move': self.id,
+                    'env_service': self.company_id.env_service
+                })
+                self.write({'sri_authorization': sri_auth.id})
+            else:
+                raise UserError(errores)
 
     def get_auth(self):
         to_process = self.env['sri.authorization'].search([
@@ -194,40 +196,55 @@ class Invoice(models.Model):
         for data in to_process:
             xml = DocumentXML()
             auth, m = xml.request_authorization(data.sri_authorization_code)
-            if not auth:
+            if auth:
+                invoice_id = data.account_move
+                data.write({'sri_authorization_date': auth['fechaAutorizacion']})
+                data.write({'processed': True})
+                auth_einvoice = self.render_authorized_einvoice(auth)
+                encoded = self.encode_file(auth_einvoice)
+                data.write({'xml_binary': encoded})
+                pdf = self.env.ref('l10n_ec_ein.account_invoices_elec').render_qweb_pdf(invoice_id.ids)
+                message = """
+                            DOCUMENTO ELECTRONICO GENERADO <br><br>
+                            CLAVE DE ACCESO: %s <br>
+                            NUMERO DE AUTORIZACION %s <br>
+                            FECHA AUTORIZACION: %s <br>
+                            ESTADO DE AUTORIZACION: %s <br>
+                            AMBIENTE: %s <br>
+                            """ % (
+                    auth['numeroAutorizacion'],
+                    auth['numeroAutorizacion'],
+                    auth['fechaAutorizacion'],
+                    auth['estado'],
+                    'PRUEBAS' if data.company_id.env_service == '1' else 'PRODUCCION'
+                )
+                data.account_move.message_post(body=message, subject="Factura electronica generada "
+                                                                     + data.account_move.name,
+                                               email_send=True,
+                                               message_type='comment', email_from=data.company_id.email,
+                                               author_id=data.company_id.partner_id.id, attachments=[[invoice_id.name + '.xml', auth_einvoice],
+                                                                                                     [invoice_id.name + '.pdf', pdf[0]]],
+                                               partner_ids=[invoice_id.partner_id.id],
+                                               subtype='mail.mt_comment')
+            else:
                 msg = ' '.join(list(itertools.chain(*m)))
-                raise UserError(msg)
-            data.write({'sri_authorization_date': auth['fechaAutorizacion']})
-            data.write({'processed': True})
-            auth_einvoice = self.render_authorized_einvoice(auth)
-            attach = self.add_attachment(auth_einvoice, auth)
-            message = """
-                        DOCUMENTO ELECTRONICO GENERADO <br><br>
-                        CLAVE DE ACCESO: %s <br>
-                        NUMERO DE AUTORIZACION %s <br>
-                        FECHA AUTORIZACION: %s <br>
-                        ESTADO DE AUTORIZACION: %s <br>
-                        AMBIENTE: %s <br>
-                        """ % (
-                auth['numeroAutorizacion'],
-                auth['numeroAutorizacion'],
-                auth['fechaAutorizacion'],
-                auth['estado'],
-                'PRUEBAS' if self.company_id.env_service == '1' else 'PRODUCCION'
-            )
-            data.account_move.message_post(body=message, attachments=[str(auth), xml])
-            data.account_move.send_document(
-                attachments=[a.id for a in attach],
-                tmpl='l10n_ec_reports.email_template_einvoice'
-            )
+                print(msg)
 
-    def add_attachment(self, xml_element, auth):
+    def add_attachment(self, xml_element, auth, sri_auth):
+        x_path = "/tmp/ComprobantesAutorizados/"
+        if not path.exists(x_path):
+            os.mkdir(x_path)
+        document = open(x_path + 'FACTURA_SRI_' + auth['numeroAutorizacion'] + ".xml", 'w')
+        document.write(xml_element)
+        encoded = self.encode_file(xml_element)
+        document.close()
+
         attach = self.env['ir.attachment'].create(
             {
                 'name': '{0}.xml'.format(auth['numeroAutorizacion']),
-                'datas': xml_element,
-                'res_model': self._name,
-                'res_id': self.id,
+                'datas': encoded,
+                'res_model': 'account.move',
+                'res_id': sri_auth.account_move.id,
                 'type': 'binary'
             },
         )
@@ -272,3 +289,9 @@ class Invoice(models.Model):
         return Template(
             self._read_template(template_path)
         ).substitute(**kwargs)
+
+    @staticmethod
+    def encode_file(text):
+        encode = text.encode('ascii')
+        encoded = base64.b64encode(encode)
+        return encoded
