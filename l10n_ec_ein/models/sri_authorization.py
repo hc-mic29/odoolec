@@ -30,7 +30,8 @@ class SriAuthorization (models.Model):
         string='Environment Type',
         required=False,
     )
-
+    is_error = fields.Boolean()
+    error_text = fields.Char()
     xml_binary = fields.Binary()
 
 

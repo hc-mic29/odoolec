@@ -13,10 +13,8 @@
       <field name="lang">${object.partner_id.lang}</field>
       <field name="body_html"><![CDATA[
       Estimad@ ${ object.partner_id.name },
-
       adjunto encontrará su factura electrónica número ${ object.name }, con fecha
       de emisión ${ object.invoice_date } por un total de ${ object.amount_total }.
-
       ]]>
       </field>
     </record>

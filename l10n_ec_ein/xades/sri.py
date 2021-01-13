@@ -92,25 +92,22 @@ class DocumentXML(object):
             self.logger.error(errores)
             return False, ', '.join(errores)
 
-    def request_authorization(self, access_key):
+    def request_authorization(self, data):
         messages = []
         client = Client(SriService.get_active_ws()[1])
-        result = client.service.autorizacionComprobante(access_key)
-        # self.logger.debug("Respuesta de autorizacionComprobante:SRI")
-        # self.logger.debug(result)
+        result = client.service.autorizacionComprobante(data.sri_authorization_code)
+
         if result['numeroComprobantes'] != '0':
             autorizacion = result.autorizaciones[0][0]
             mensajes = autorizacion.mensajes and autorizacion.mensajes[0] or []
-            # self.logger.info('Estado de autorizacion %s' % autorizacion.estado)
             for m in mensajes:
-                self.logger.error('{0} {1} {2}'.format(
+                error = '{0} {1} {2}'.format(
                     m.identificador, m.mensaje, m.tipo, m.informacionAdicional)
-                )
-                messages.append([m.identificador, m.mensaje,
-                                 m.tipo, m.informacionAdicional])
-            if not autorizacion.estado == 'AUTORIZADO':
-                return True, messages
-            return autorizacion, messages
+                data.write({'is_error': True})
+                data.write({'error_text': error})
+            if autorizacion.estado == 'AUTORIZADO':
+                return True, autorizacion
+            return False, autorizacion
         else:
             return False, "No autorizado"
 

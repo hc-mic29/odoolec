@@ -195,7 +195,7 @@ class Invoice(models.Model):
 
         for data in to_process:
             xml = DocumentXML()
-            auth, m = xml.request_authorization(data.sri_authorization_code)
+            auth, m = xml.request_authorization(data)
             if auth:
                 invoice_id = data.account_move
                 data.write({'sri_authorization_date': auth['fechaAutorizacion']})
