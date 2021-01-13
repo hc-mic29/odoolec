@@ -224,7 +224,7 @@ class Invoice(models.Model):
                                                message_type='comment', email_from=data.company_id.email,
                                                author_id=data.company_id.partner_id.id, attachments=[[invoice_id.name + '.xml', auth_einvoice],
                                                                                                      [invoice_id.name + '.pdf', pdf[0]]],
-                                               partner_ids=[invoice_id.partner_id.id, data.company_id.email_copy_to.id],
+                                               partner_ids=[invoice_id.partner_id.id, data.company_id.partner_id.id],
                                                subtype='mail.mt_comment')
             else:
                 msg = ' '.join(list(itertools.chain(*m)))
