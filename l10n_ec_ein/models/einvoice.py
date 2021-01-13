@@ -191,7 +191,7 @@ class Invoice(models.Model):
     def get_auth(self):
         to_process = self.env['sri.authorization'].search([
             ('processed', '=', False),
-            #('is_error', '=', False)
+            ('is_error', '=', False)
         ])
 
         for data in to_process:
