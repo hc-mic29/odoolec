@@ -23,8 +23,6 @@ from ..xades.sri import DocumentXML, SriService
 import os.path
 from os import path
 
-sign = '/tmp/sign.p12'
-
 
 class Invoice(models.Model):
     _name = 'account.move'
@@ -168,7 +166,7 @@ class Invoice(models.Model):
             xades = self.env['sri.key.type'].search([
                 ('company_id', '=', self.company_id.id)
             ])
-            x_path = "/tmp/ComprobantesGenerados/"
+            x_path = obj.company_id.log_path
             if not path.exists(x_path):
                 os.mkdir(x_path)
             to_sign_file = open(x_path + 'FACTURA_SRI_' + self.name + ".xml", 'w')
@@ -191,7 +189,7 @@ class Invoice(models.Model):
     def get_auth(self):
         to_process = self.env['sri.authorization'].search([
             ('processed', '=', False),
-            ('is_error', '=', False)
+            #('is_error', '=', False)
         ])
 
         for data in to_process:
@@ -231,7 +229,7 @@ class Invoice(models.Model):
                 print(m.estado+" error:"+str(m.mensajes))
 
     def add_attachment(self, xml_element, auth, sri_auth):
-        x_path = "/tmp/ComprobantesAutorizados/"
+        x_path = auth.company_id.log_path
         if not path.exists(x_path):
             os.mkdir(x_path)
         document = open(x_path + 'FACTURA_SRI_' + auth['numeroAutorizacion'] + ".xml", 'w')
