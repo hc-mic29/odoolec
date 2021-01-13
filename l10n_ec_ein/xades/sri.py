@@ -56,9 +56,9 @@ class DocumentXML(object):
         xmlschema = etree.XMLSchema(xmlschema_doc)
         try:
             xmlschema.assertValid(self.document)
-            return True
+            return False, ""
         except DocumentInvalid:
-            return False
+            return True, str(xmlschema.error_log)
 
     @classmethod
     def send_receipt(self, document):

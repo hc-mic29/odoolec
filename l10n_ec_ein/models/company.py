@@ -19,7 +19,7 @@ class Company(models.Model):
             ('SI', 'Yes'),
             ('NO', 'No')
         ],
-        string = 'Keep Accounting',
+        string='Keep Accounting',
         required='True',
         default='NO'
     )
@@ -33,3 +33,5 @@ class Company(models.Model):
         required='True',
         default='000'
     )
+
+    email_copy_to = fields.Many2one('res.partner')

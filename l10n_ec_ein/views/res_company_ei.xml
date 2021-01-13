@@ -13,6 +13,7 @@
                     <field name="env_service"/>
                     <field name="is_force_keep_accounting"/>
                     <field name="is_special_taxpayer"/>
+                    <field name="email_copy_to"/>
                   </group>
                 </groups>
               </page>

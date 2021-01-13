@@ -162,9 +162,9 @@ class Invoice(models.Model):
             access_key, emission_code = self._get_codes(name='account.move')
             einvoice = self.render_document(obj, access_key, emission_code)
             inv_xml = DocumentXML(einvoice, obj.type)
-            if not inv_xml.validate_xml():
-                raise UserError("Not Valid Schema")
-
+            is_error, message = inv_xml.validate_xml()
+            if is_error:
+                raise UserError("Not Valid Schema" + message)
             xades = self.env['sri.key.type'].search([
                 ('company_id', '=', self.company_id.id)
             ])
@@ -224,7 +224,7 @@ class Invoice(models.Model):
                                                message_type='comment', email_from=data.company_id.email,
                                                author_id=data.company_id.partner_id.id, attachments=[[invoice_id.name + '.xml', auth_einvoice],
                                                                                                      [invoice_id.name + '.pdf', pdf[0]]],
-                                               partner_ids=[invoice_id.partner_id.id],
+                                               partner_ids=[invoice_id.partner_id.id, data.company_id.email_copy_to.id],
                                                subtype='mail.mt_comment')
             else:
                 msg = ' '.join(list(itertools.chain(*m)))
@@ -249,17 +249,6 @@ class Invoice(models.Model):
             },
         )
         return attach
-
-    def send_document(self, attachments=None, tmpl=False):
-        self.ensure_one()
-        self._logger.info('Enviando documento electronico por correo')
-        tmpl = self.env.ref(tmpl)
-        tmpl.send_mail(  # noqa
-            self.id,
-            email_values={'attachment_ids': attachments}
-        )
-        self.sent = True
-        return True
 
     def _compute_discount(self, detalles):
         total = sum([float(det['descuento']) for det in detalles['detalles']])
