@@ -135,8 +135,8 @@ class Invoice(models.Model):
                     'valor': '{:.2f}'.format(tax_line.price_subtotal * (tax_line.tax_ids.amount / 100))
                 }
                 impuestos.append(impuesto)
-        detalle.update({'impuestos': impuestos})
-        detalles.append(detalle)
+            detalle.update({'impuestos': impuestos})
+            detalles.append(detalle)
         return {'detalles': detalles}
 
     def render_authorized_einvoice(self, autorizacion):
@@ -221,8 +221,9 @@ class Invoice(models.Model):
                                                                      + data.account_move.name,
                                                email_send=True,
                                                message_type='comment', email_from=data.company_id.email,
-                                               author_id=data.company_id.partner_id.id, attachments=[[invoice_id.name + '.xml', auth_einvoice],
-                                                                                                     [invoice_id.name + '.pdf', pdf[0]]],
+                                               author_id=data.company_id.partner_id.id,
+                                               attachments=[[invoice_id.name + '.xml', auth_einvoice],
+                                                            [invoice_id.name + '.pdf', pdf[0]]],
                                                partner_ids=[invoice_id.partner_id.id, data.company_id.partner_id.id],
                                                subtype='mail.mt_comment')
             else:
