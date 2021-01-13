@@ -190,7 +190,8 @@ class Invoice(models.Model):
 
     def get_auth(self):
         to_process = self.env['sri.authorization'].search([
-            ('processed', '=', False)
+            ('processed', '=', False),
+            #('is_error', '=', False)
         ])
 
         for data in to_process:
@@ -227,8 +228,7 @@ class Invoice(models.Model):
                                                partner_ids=[invoice_id.partner_id.id, data.company_id.partner_id.id],
                                                subtype='mail.mt_comment')
             else:
-                msg = ' '.join(list(itertools.chain(*m)))
-                print(msg)
+                print(m.estado+" error:"+str(m.mensajes))
 
     def add_attachment(self, xml_element, auth, sri_auth):
         x_path = "/tmp/ComprobantesAutorizados/"

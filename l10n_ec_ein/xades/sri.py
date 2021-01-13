@@ -101,7 +101,7 @@ class DocumentXML(object):
             autorizacion = result.autorizaciones[0][0]
             mensajes = autorizacion.mensajes and autorizacion.mensajes[0] or []
             for m in mensajes:
-                error = '{0} {1} {2}'.format(
+                error = '{0} {1} {2} {3}'.format(
                     m.identificador, m.mensaje, m.tipo, m.informacionAdicional)
                 data.write({'is_error': True})
                 data.write({'error_text': error})
