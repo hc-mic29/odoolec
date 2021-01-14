@@ -198,9 +198,9 @@ class Invoice(models.Model):
             auth, m = xml.request_authorization(data)
             if auth:
                 invoice_id = data.account_move
-                data.write({'sri_authorization_date': auth['fechaAutorizacion']})
+                data.write({'sri_authorization_date': m['fechaAutorizacion']})
                 data.write({'processed': True})
-                auth_einvoice = self.render_authorized_einvoice(auth)
+                auth_einvoice = self.render_authorized_einvoice(m)
                 encoded = self.encode_file(auth_einvoice)
                 data.write({'xml_binary': encoded})
                 pdf = self.env.ref('l10n_ec_ein.account_invoices_elec').render_qweb_pdf(invoice_id.ids)
@@ -212,10 +212,10 @@ class Invoice(models.Model):
                             ESTADO DE AUTORIZACION: %s <br>
                             AMBIENTE: %s <br>
                             """ % (
-                    auth['numeroAutorizacion'],
-                    auth['numeroAutorizacion'],
-                    auth['fechaAutorizacion'],
-                    auth['estado'],
+                    m['numeroAutorizacion'],
+                    m['numeroAutorizacion'],
+                    m['fechaAutorizacion'],
+                    m['estado'],
                     'PRUEBAS' if data.company_id.env_service == '1' else 'PRODUCCION'
                 )
                 data.account_move.message_post(body=message, subject="Factura electronica generada "
@@ -281,7 +281,7 @@ class Invoice(models.Model):
 
     @staticmethod
     def encode_file(text):
-        encode = text.encode('ascii')
+        encode = text.encode('utf-8')
         encoded = base64.b64encode(encode)
         return encoded
 
