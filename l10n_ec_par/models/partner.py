@@ -43,7 +43,7 @@ class Partner(models.Model):
                     elif len(record.vat) > tt.max_length:
                         raise ValidationError('Tax id is major than allowed')
 
-    _sql_constraints = [('vat_unique', 'unique(vat,taxid_type)', 'Error')]
+    _sql_constraints = [('vat_unique', 'unique(vat,taxid_type)', 'Error, El numero de identificacion ya existe')]
 
     @api.constrains('vat', 'taxid_type')
     def _check_identifier(self):
