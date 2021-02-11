@@ -203,7 +203,7 @@ class Invoice(models.Model):
                 auth_einvoice = self.render_authorized_einvoice(m)
                 encoded = self.encode_file(auth_einvoice)
                 data.write({'xml_binary': encoded})
-                pdf = self.env.ref('l10n_ec_ein.account_invoices_elec').render_qweb_pdf(invoice_id.ids)
+                pdf = self.env.ref('l10n_ec_ein.account_invoices_elec').sudo().render_qweb_pdf(invoice_id.ids)
                 message = """
                             DOCUMENTO ELECTRONICO GENERADO <br><br>
                             CLAVE DE ACCESO: %s <br>

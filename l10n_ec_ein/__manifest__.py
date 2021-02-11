@@ -23,7 +23,8 @@
     'depends': ['base',
                 'account',
                 'l10n_ec_par',
-                'purchase'],
+                'purchase',
+                ],
 
     # always loaded
     'data': [
