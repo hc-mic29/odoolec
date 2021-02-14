@@ -191,6 +191,8 @@ class Invoice(models.Model):
             ('is_error', '=', False)
         ])
 
+        SriService.set_active_env(self.company_id.env_service)
+
         for data in to_process:
             xml = DocumentXML()
             auth, m = xml.request_authorization(data)
