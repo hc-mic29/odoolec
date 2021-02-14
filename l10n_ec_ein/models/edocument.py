@@ -86,7 +86,7 @@ class EDocument(models.AbstractModel):
         ak_temp = self.get_access_key(name)
         self.SriServiceObj.set_active_env(self.env.user.company_id.env_service)
         access_key = self.SriServiceObj.create_access_key(ak_temp)
-        emission_code = self.journal_id.sequence_id.prefix[0:3]
+        emission_code = self.name[0:3]
         return access_key, emission_code
 
     def get_access_key(self, name):

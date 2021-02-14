@@ -6,6 +6,8 @@ access_sri_payment_type,sri_payment_type.user,model_sri_payment_type,base.group_
 access_sri_tax_type,sri_payment_tax.user,model_lec_tax_code,base.group_user,1,1,1,1
 access_sri_tax_rate_type,sri_payment_tax_rate.user,model_lec_tax_rate,base.group_user,1,1,1,1
 access_sri_xades_type,sri_xades_type.user,model_sri_key_type,base.group_user,1,1,1,1
+access_invoice_taxes,account_move_tax_transient.user,model_account_move_tax_transient,base.group_user,1,1,1,1
+access_account_move_tax,account_move_tax.user,model_account_move_tax,base.group_user,1,1,1,1
 
 
 

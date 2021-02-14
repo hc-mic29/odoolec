@@ -65,20 +65,16 @@ MSG_SCHEMA_INVALID = u"El sistema generó el XML pero"
 " el comprobante electrónico no pasa la validación XSD del SRI."
 
 
-def check_service(env, url):
+def check_service(url):
     flag = False
-    if env == 'test':
-        URL = url
-    else:
-        URL = url
 
     for i in [1, 2, 3]:
         try:
-            res = requests.head(URL, timeout=3)
+            res = requests.head(url, timeout=3)
             flag = True
         except requests.exceptions.RequestException:
-            return flag, False
-    return flag, res
+            return flag
+    return flag
 
 
 def get_authorisation(type_document):

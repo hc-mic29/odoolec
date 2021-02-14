@@ -89,7 +89,7 @@
                                                     <tr>
                                                         <td width="3%"></td>
                                                         <td width="96%">
-                                                            <span t-esc="res_company.val_agente_retencion"/>
+                                                            <span t-esc="res_company.vat"/>
                                                         </td>
                                                     </tr>
                                                 </table>

@@ -34,5 +34,4 @@ class Company(models.Model):
         default='000'
     )
 
-    email_copy_to = fields.Many2one('res.partner')
     log_path = fields.Char(default='/tmp/')

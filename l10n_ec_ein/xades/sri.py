@@ -7,6 +7,9 @@ import logging
 
 from lxml import etree
 from lxml.etree import fromstring, DocumentInvalid
+from odoo import _
+
+from odoo.odoo.exceptions import UserError
 
 try:
     from suds.client import Client
@@ -70,12 +73,14 @@ class DocumentXML(object):
         buffer_xml = buffer_xml.replace('\n', '')
 
         sri = SriService()
+        if sri.get_active_env() == 1:
+            url = sri.get_ws_test()[0]
+        else:
+            url = sri.get_ws_prod()[0]
 
-        url = sri.get_ws_test()
-
-        if not utils.check_service('prueba', url):
+        if not utils.check_service(url):
             # TODO: implementar modo offline
-            raise 'Error SRI'('Servicio SRI no disponible.')
+            return False, 'No se puede conectar al SRI'
 
         client = Client(SriService.get_active_ws()[0])
         result = client.service.validarComprobante(buffer_xml)
@@ -92,7 +97,8 @@ class DocumentXML(object):
             self.logger.error(errores)
             return False, ', '.join(errores)
 
-    def request_authorization(self, data):
+    @staticmethod
+    def request_authorization(data):
         messages = []
         client = Client(SriService.get_active_ws()[1])
         result = client.service.autorizacionComprobante(data.sri_authorization_code)
@@ -115,7 +121,7 @@ class DocumentXML(object):
 class SriService(object):
     __AMBIENTE_PRUEBA = '1'
     __AMBIENTE_PROD = '2'
-    __ACTIVE_ENV = False
+    __ACTIVE_ENV = 1
     # revisar el utils
     __WS_TEST_RECEIV = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl'  # noqa
     __WS_TEST_AUTH = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl'  # noqa
@@ -168,9 +174,7 @@ class SriService(object):
         """
         values: tuple ([], [])
         """
-        # env = self.get_active_env()
-        env = '1'
-        dato = ''.join(values[0] + [env])
+        dato = ''.join(values[0] + ['1'])
         modulo = CheckDigit.compute_mod11(dato)
         access_key = ''.join([dato, str(modulo)])
         return access_key

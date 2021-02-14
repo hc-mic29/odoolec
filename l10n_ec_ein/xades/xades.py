@@ -44,37 +44,3 @@ class CheckDigit(object):
 
         mod = self._eval_mod11(mod)
         return mod
-
-
-class Xades(object):
-
-    def sign(self, to_sign_file, password):
-        JAR_PATH = 'firma/IngeintXades.jar'
-        JAVA_CMD = 'java'
-        pk_12_file = 'sign.p12'
-        jar_path = os.path.join(os.path.dirname(__file__), JAR_PATH)
-
-        command = [
-            JAVA_CMD,
-            '-jar',
-            jar_path,
-            to_sign_file.name,
-            pk_12_file,
-            password
-        ]
-        try:
-            logging.info('Probando comando de firma digital')
-            subprocess.check_output(command)
-        except subprocess.CalledProcessError as e:
-            returncode = e.returncode
-            output = e.output
-            logging.error('Llamada a proceso JAVA codigo: %s' % returncode)
-            logging.error('Error: %s' % output)
-
-        p = subprocess.Popen(
-            command,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
-        )
-        res = p.communicate()
-        return res[0]

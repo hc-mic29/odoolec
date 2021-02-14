@@ -26,8 +26,8 @@
           model="account.move"
           string="Factura Electronica"
           report_type="qweb-pdf"
-          name="report_einvoice_elec"
-          file="report_einvoice_elec"
+          name="l10n_ec_ein.report_einvoice_elec"
+          file="l10n_ec_ein.report_einvoice_elec"
           attachment_use="False"
           attachment="('FACTURA_'+(object.name or '').replace('/','')+'.pdf')"
           />

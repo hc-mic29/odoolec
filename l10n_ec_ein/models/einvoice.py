@@ -5,7 +5,6 @@ import itertools
 from datetime import datetime
 
 from odoo.addons.account import report
-from odoo.addons.account.models.account_payment import MAP_INVOICE_TYPE_PARTNER_TYPE
 from jinja2 import Environment, FileSystemLoader, Template
 
 from odoo import api, models, fields
@@ -18,7 +17,6 @@ from odoo.tools import safe_eval
 from . import utils
 from . import edocument
 
-MAP_INVOICE_TYPE_PARTNER_TYPE.update({'liq_purchase': 'supplier'})
 from ..xades.sri import DocumentXML, SriService
 import os.path
 from os import path
@@ -76,7 +74,7 @@ class Invoice(models.Model):
 
         infoFactura.update({'totalConImpuestos': totalConImpuestos})
 
-        if self.type == 'out_refund':
+        if self.move_type == 'out_refund':
             inv = self.search([('name', '=', self.origin)], limit=1)
             inv_number = self.name
             notacredito = {
@@ -156,11 +154,11 @@ class Invoice(models.Model):
 
     def action_generate_einvoice(self):
         for obj in self:
-            if obj.type not in ['out_invoice', 'out_refund'] and not obj.journal_id.is_electronic_document:
+            if obj.move_type not in ['out_invoice', 'out_refund'] and not obj.journal_id.is_electronic_document:
                 continue
             access_key, emission_code = self._get_codes(name='account.move')
             einvoice = self.render_document(obj, access_key, emission_code)
-            inv_xml = DocumentXML(einvoice, obj.type)
+            inv_xml = DocumentXML(einvoice, obj.move_type)
             is_error, message = inv_xml.validate_xml()
             if is_error:
                 raise UserError("Not Valid Schema" + message)
@@ -203,7 +201,7 @@ class Invoice(models.Model):
                 auth_einvoice = self.render_authorized_einvoice(m)
                 encoded = self.encode_file(auth_einvoice)
                 data.write({'xml_binary': encoded})
-                pdf = self.env.ref('l10n_ec_ein.account_invoices_elec').sudo().render_qweb_pdf(invoice_id.ids)
+                pdf = self.env.ref('l10n_ec_ein.account_invoices_elec').sudo()._render_qweb_pdf(invoice_id.ids)
                 message = """
                             DOCUMENTO ELECTRONICO GENERADO <br><br>
                             CLAVE DE ACCESO: %s <br>
@@ -257,7 +255,7 @@ class Invoice(models.Model):
     def render_document(self, invoice, access_key, emission_code):
         tmpl_path = os.path.join(os.path.dirname(__file__), 'templates')
         env = Environment(loader=FileSystemLoader(tmpl_path))
-        einvoice_tmpl = env.get_template(self.TEMPLATES[self.type])
+        einvoice_tmpl = env.get_template(self.TEMPLATES[self.move_type])
         data = {}
         data.update(self._info_tributaria(invoice, access_key, emission_code))
         data.update(self._info_invoice())
@@ -287,7 +285,7 @@ class Invoice(models.Model):
 
     def action_post(self):
         res = super(Invoice, self).action_post()
-        if self.type in ('out_invoice', 'in_invoice', 'in_refund', 'out_refund', 'out_receipt', 'in_receipt'):
+        if self.move_type in ('out_invoice', 'in_invoice', 'in_refund', 'out_refund', 'out_receipt', 'in_receipt'):
             for lines in self.invoice_line_ids:
                 if lines.tax_ids:
                     for tax in lines.tax_ids:
