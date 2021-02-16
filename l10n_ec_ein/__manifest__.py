@@ -45,7 +45,8 @@
         'views/sri_sign.xml',
         'edi/einvoice_edi.xml',
         'report/report_einvoice.xml',
-        'report/edocument_layouts.xml'
+        'report/edocument_layouts.xml',
+        'report/ride.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
