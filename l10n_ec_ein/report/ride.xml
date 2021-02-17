@@ -19,7 +19,7 @@
                                         border-style: solid;
                                         border-width: 2px;
                                         border-radius:22px;
-                                        width:410px
+                                        width:440px
                                         }
                                     </style>
                                     <style type="text/css">
@@ -28,7 +28,7 @@
                                         border-style: solid;
                                         border-width: 2px;
                                         border-radius:22px;
-                                        width:400px;
+                                        width:440px;
                                         height:180px
                                         }
                                     </style>
@@ -45,7 +45,7 @@
                                                 <span style="margin-left: 15px"><strong>Obligado a Llevar contabilidad: </strong><span t-esc="res_company.is_force_keep_accounting"/></span>
                                         </div>
                                     </div>
-                                   <div class="redondo" style="margin-left: 130px">
+                                   <div class="redondo" style="margin-left: 110px">
                                        <br/>
                                        <br/>
                                         <span style="font-size: 14px;margin-left: 15px"><strong>R.U.C.: </strong></span> <span style="font-size: 14px" t-esc="res_company.partner_id.vat"/><br/>
