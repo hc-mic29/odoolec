@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="tax_havens_form_view" model="ir.ui.view">
+            <field name="name">ats.tax.havens.form</field>
+            <field name="model">ats.tax.havens</field>
+            <field name="arch" type="xml">
+                <form string="Tax Havens">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="value"/>
+                            <h1>
+                                <field name="value" placeholder="Value"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                             <group>
+                                 <field name="country_id"/>
+                            </group>
+                            <group>
+                                 <field name="start_date"/>
+                                 <field name="end_date"/>
+                            </group>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tax_havens_tree_view" model="ir.ui.view">
+            <field name="name">ats.tax.havens.tree</field>
+            <field name="model">ats.tax.havens</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Havens">
+                    <field name="value"/>
+                    <field name="name"/>
+                    <field name="country_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tax_havens_act_window" model="ir.actions.act_window">
+            <field name="name">Tax Havens</field>
+            <field name="res_model">ats.tax.havens</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tax_havens_form_view"/>
+        </record>
+
+        <menuitem name="Tax Havens" id="tax_havens_menu"
+                          parent="menu_ats" action="tax_havens_act_window"
+                          sequence="20"/>
+
+    </data>
+</odoo>
