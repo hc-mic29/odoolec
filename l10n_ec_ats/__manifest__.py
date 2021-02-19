@@ -22,7 +22,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'purchase', 'account_accountant', 'l10n_ec_readxml'],
+    'depends': ['base', 'purchase', 'account', 'account_accountant','l10n_latam_invoice_document'],
 
     # always loaded
     'data': [
@@ -31,6 +31,8 @@
         'views/sustento_sri.xml',
         'views/ats.xml',
         'views/tax_havens.xml',
+        'views/country.xml',
+        'views/foreign_income_type.xml',
         'data/data_sutents_tax.xml'
     ],
     # only loaded in demonstration mode

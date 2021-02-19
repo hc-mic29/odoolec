@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_l10n_ec_sustents_tax,sustents_tax,model_sustents_tax,base.group_user,1,1,1,1
 access_l10n_ec_ats,ats_ec,model_ats_ec,base.group_user,1,1,1,1
 access_l10n_ec_ats_tax_havens,ats_tax_havens,model_ats_tax_havens,base.group_user,1,1,1,1
+access_l10n_ec_ats_foreign_income_type,foreign_income_type,model_ats_foreign_income_type,base.group_user,1,1,1,1
