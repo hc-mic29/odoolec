@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 19:42+0000\n"
-"PO-Revision-Date: 2021-02-18 19:42+0000\n"
+"POT-Creation-Date: 2021-02-20 00:13+0000\n"
+"PO-Revision-Date: 2021-02-20 00:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,13 +51,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__code
 msgid "Code"
 msgstr "Código"
-
-#. module: l10n_ec_ats
-#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__authorization_code
-#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__authorization_code
-#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__authorization_code
-msgid "Codigo de autorizacion"
-msgstr ""
 
 #. module: l10n_ec_ats
 #: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__Company_ids
@@ -248,13 +241,6 @@ msgid "Nov"
 msgstr ""
 
 #. module: l10n_ec_ats
-#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__document_no
-#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__document_no
-#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__document_no
-msgid "Numero de Documento"
-msgstr ""
-
-#. module: l10n_ec_ats
 #: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_extension_account_move_search_tree_inherit
 msgid "N° Document"
 msgstr "N° de Documento"
@@ -268,6 +254,23 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__10
 msgid "Oct"
 msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__payment_info
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__payment_info
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__payment_info
+msgid "Payment Info"
+msgstr "Información del Pago"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__account_move__payment_info__non-resident
+msgid "Payment To Non-resident"
+msgstr "Pago a no Residente"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__account_move__payment_info__resident
+msgid "Payment To Resident"
+msgstr "Pago a Residente"
 
 #. module: l10n_ec_ats
 #: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__9
@@ -302,11 +305,22 @@ msgstr ""
 #. module: l10n_ec_ats
 #: model:ir.actions.act_window,name:l10n_ec_ats.tax_havens_act_window
 #: model:ir.model,name:l10n_ec_ats.model_ats_tax_havens
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__is_tax_havens
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__is_tax_havens
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__is_tax_havens
 #: model:ir.ui.menu,name:l10n_ec_ats.tax_havens_menu
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.extension_account_move_form
 #: model_terms:ir.ui.view,arch_db:l10n_ec_ats.tax_havens_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_ec_ats.tax_havens_tree_view
 msgid "Tax Havens"
 msgstr "Paraíso Fiscal"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__tax_heavens_id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__tax_heavens_id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__tax_heavens_id
+msgid "Tax Havens List"
+msgstr ""
 
 #. module: l10n_ec_ats
 #: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_sustents_tax_form

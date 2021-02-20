@@ -31,7 +31,7 @@ class AccountMove(models.Model):
     payment_info = fields.Selection([('non-resident', 'Payment To Non-resident'),
                                      ('resident', 'Payment To Resident')])
     is_tax_havens = fields.Boolean(string='Tax Havens')
-    tax_heavens_id = fields.Many2one('ats.tax.havens', string='Tax Havens', ondelete='restrict')
+    tax_heavens_id = fields.Many2one('ats.tax.havens', string='Tax Havens List', ondelete='restrict')
 
     # @api.onchange('sri_authorization_po')
     # def _sri_authorization_po(self):
