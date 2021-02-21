@@ -9,6 +9,7 @@
               <xpath expr="//field[@name='code']" position="after">
                   <field name="is_electronic_document"/>
                   <field name="sri_doctype"/>
+                  <field name="l10n_latam_use_documents"/>
               </xpath>
           </field>
         </record>

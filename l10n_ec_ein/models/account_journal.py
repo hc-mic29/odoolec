@@ -16,3 +16,5 @@ class Company(models.Model):
         ]
     )
 
+    l10n_latam_use_documents = fields.Boolean(default=False)
+

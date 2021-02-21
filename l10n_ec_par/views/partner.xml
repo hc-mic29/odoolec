@@ -9,7 +9,7 @@
                 <field name="taxid_type" required="1" options="{'no_create': True}"/>
             </field>
         <field name="vat" position="after">
-            <field name="taxpayer_type" required="1" options="{'no_create': True}"/>
+            <field name="taxpayer_type" required="0" options="{'no_create': True}"/>
         </field>
         </field>
     </record>

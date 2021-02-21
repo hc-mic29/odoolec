@@ -273,19 +273,15 @@
                                             </td>
                                             <td width=" 8%" style="border: 2px solid black;"><div align="right">
                                                 <span t-esc="'%.2f' % line.price_unit"/>
-                                            </div></td>
-                                            <!--<td width="10%" style="border: 2px solid black;">
-                                                <font size="2">0.00</font>
+                                            </div>
                                             </td>
-                                            <td width="10%" style="border: 2px solid black;">
-                                                <font size="2">0.00</font>
-                                            </td>-->
                                             <td width="10%" style="border: 2px solid black;">
                                                 <span t-esc="'%.2f' % line.discount"/>
                                             </td>
                                             <td width="10%" style="border: 2px solid black;"><div align="right">
-                                                <span t-field="line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                            </div></td>
+                                                <span t-esc="line.price_subtotal" />
+                                            </div>
+                                            </td>
                                         </tr>
                                     </t>
                                 </table>
@@ -372,8 +368,8 @@
                                                     <td width="55%" style="border: 2px solid black;">
                                                         <strong> Subtotal 0%</strong>
                                                     </td>
-                                                    <td width="45%" style="border: 2px solid black;"><div align="right">
-                                                        <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                    <td width="45%" ><div align="right">
+                                                        <span t-esc="o.amount_untaxed"/>
                                                     </div></td>                                                    
                                                 </tr>
                                                 <!--<tr>
@@ -392,29 +388,7 @@
                                                         <font size="2">$ 0.00</font>
                                                     </div></td>
                                                 </tr>
-                                                <t t-foreach="o.amount_by_group" t-as="amount_by_group">
-                                                    <tr>
-                                                        <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and o.amount_untaxed == amount_by_group[2]">
-                                                            <td width="55%" style="border: 2px solid black;">
-                                                                <span t-esc="amount_by_group[0]"/>
-                                                            </td>
-                                                            <td width="45%" style="border: 2px solid black;"><div align="right">
-                                                                <span t-esc="amount_by_group[3]" />
-                                                            </div></td>
-                                                        </t>
-                                                        <t t-else="">
-                                                            <td width="55%" style="border: 2px solid black;">
-                                                                <span t-esc="amount_by_group[0]"/>
-                                                                <span class="text-nowrap"> on
-                                                                    <t t-esc="amount_by_group[4]"/>
-                                                                </span>
-                                                            </td>
-                                                            <td width="45%" style="border: 2px solid black;"><div align="right">
-                                                                <span class="text-nowrap" t-esc="amount_by_group[3]"/>
-                                                            </div></td>
-                                                        </t>
-                                                    </tr>
-                                                </t>
+                                                
                                                 <tr>
                                                     <td width="55%" style="border: 2px solid black;">
                                                         <strong> IRBPNR</strong>
@@ -437,7 +411,7 @@
                                                     </td>
                                                     <td width="45%" style="border: 2px solid black;"><div align="right">
                                                         <strong>
-                                                            <span t-field="o.amount_residual" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                            <span t-esc="o.amount_residual" />
                                                         </strong>           
                                                     </div></td>
                                                 </tr>
@@ -475,7 +449,7 @@
                                                     <td style="border: 2px solid black;">
                                                         <font size="2">
                                                             <span>
-                                                                <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                                <span t-esc="o.amount_total" />
                                                             </span>
                                                         </font>
                                                     </td>
