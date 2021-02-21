@@ -46,7 +46,8 @@
         'edi/einvoice_edi.xml',
         'report/report_einvoice.xml',
         'report/edocument_layouts.xml',
-        'data/cron.xml'
+        'data/cron.xml',
+        'report/ride.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

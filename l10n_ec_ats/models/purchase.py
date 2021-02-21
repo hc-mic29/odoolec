@@ -26,22 +26,24 @@ from odoo.exceptions import ValidationError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    document_no = fields.Char('Numero de Documento')
-    authorization_code = fields.Char('Codigo de autorizacion')
     auth_date = fields.Date('Fecha de autorizacion')
     sustento_id = fields.Many2one('sustents.tax', 'Sustento Tributario')
+    payment_info = fields.Selection([('non-resident', 'Payment To Non-resident'),
+                                     ('resident', 'Payment To Resident')])
+    is_tax_havens = fields.Boolean(string='Tax Havens')
+    tax_heavens_id = fields.Many2one('ats.tax.havens', string='Tax Havens List', ondelete='restrict')
 
-    @api.onchange('authorization_code')
-    def _authorization_code(self):
-        if self.authorization_code:
-            if len(self.authorization_code) != 10 and len(self.authorization_code) != 49:
-                raise ValidationError("Error the code is not valid")
+    # @api.onchange('sri_authorization_po')
+    # def _sri_authorization_po(self):
+    #     if self.sri_authorization_po:
+    #         if len(self.sri_authorization_po) != 10 or len(self.sri_authorization_po) != 49:
+    #             raise ValidationError("Error the code is not valid")
 
-    @api.constrains('document_no')
+    @api.constrains('l10n_latam_document_number')
     def validate_number_invoice(self):
         count = 0
         moves = self.env['account.move'].search([
-            ('document_no', '=', self.document_no),
+            ('l10n_latam_document_number', '=', self.l10n_latam_document_number),
             ('partner_id', '=', self.partner_id.id),
             ('state', '=', 'posted')
         ])
@@ -55,14 +57,14 @@ class AccountMove(models.Model):
         if count > 1:
             raise ValidationError('El numero de factura del proveedor ya esta registrada')
 
-    @api.onchange('document_no')
+    @api.onchange('l10n_latam_document_number')
     def create_number(self):
-        if self.document_no:
-            if len(self.document_no) != 17:
-                if self.document_no.isdigit() and len(self.document_no) == 15:
-                    first = self.document_no[0:3] + '-'
-                    two = self.document_no[3:6] + '-'
-                    three = self.document_no[6:17]
-                    self.document_no = str(first) + str(two) + str(three)
+        if self.l10n_latam_document_number:
+            if len(self.l10n_latam_document_number) != 17 and 'FACTU' not in self.l10n_latam_document_number:
+                if self.l10n_latam_document_number.isdigit() and len(self.l10n_latam_document_number) == 15:
+                    first = self.l10n_latam_document_number[0:3] + '-'
+                    two = self.l10n_latam_document_number[3:6] + '-'
+                    three = self.l10n_latam_document_number[6:17]
+                    self.l10n_latam_document_number = str(first) + str(two) + str(three)
                 else:
                     raise ValidationError(_('Error the document number is incorrect'))

@@ -1,6 +1,7 @@
 from odoo import fields, models, api
 from datetime import datetime
 
+
 class Ats(models.Model):
     _name = 'ats.ec'
 

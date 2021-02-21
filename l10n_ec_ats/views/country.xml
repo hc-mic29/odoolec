@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="country_form_inherit" model="ir.ui.view">
+            <field name="name">ingeint.country.form</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="ats_code" string="ATS Code"/>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem name="Country" id="country_menu"
+                          parent="menu_ats" action="base.action_country"
+                          sequence="20"/>
+    </data>
+</odoo>

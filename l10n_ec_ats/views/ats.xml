@@ -23,6 +23,7 @@
                  </form>
            </field>
         </record>
+
         <record model="ir.actions.act_window" id="action_ats">
           <field name="name">ATS</field>
           <field name="res_model">ats.ec</field>
@@ -30,8 +31,14 @@
           <field name="view_mode">tree,form</field>
           <field name="view_id" ref="view_ats_form"/>
         </record>
-        <menuitem name="ATS" id="menu_view_ats_form"
-                      parent="account_accountant.menu_accounting" action="action_ats"
+
+
+        <menuitem name="ATS" id="menu_ats"
+                      parent="account_accountant.menu_accounting"
                       sequence="19"/>
+
+            <menuitem name="Generate ATS" id="menu_view_ats_form"
+                      parent="menu_ats" action="action_ats"  sequence="10"/>
+
     </data>
 </odoo>

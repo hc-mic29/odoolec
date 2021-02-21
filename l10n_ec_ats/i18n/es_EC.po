@@ -1,0 +1,351 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ec_ats
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-20 00:13+0000\n"
+"PO-Revision-Date: 2021-02-20 00:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_ec_ats
+#: model:ir.actions.act_window,name:l10n_ec_ats.action_ats
+#: model:ir.ui.menu,name:l10n_ec_ats.menu_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_ats_form
+msgid "ATS"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.country_form_inherit
+msgid "ATS Code"
+msgstr "Código ATS"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__4
+msgid "Abr"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__8
+msgid "Ago"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_res_country__ats_code
+msgid "Ats Code"
+msgstr "Código ATS"
+
+#. module: l10n_ec_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_ats_form
+msgid "Año :"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__code
+msgid "Code"
+msgstr "Código"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__Company_ids
+msgid "Company"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model,name:l10n_ec_ats.model_res_country
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__country_id
+#: model:ir.ui.menu,name:l10n_ec_ats.country_menu
+msgid "Country"
+msgstr "País"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__create_uid
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__create_uid
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__create_uid
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__create_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__create_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__create_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__12
+msgid "Dic"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__display_name
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__display_name
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__display_name
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_res_country__display_name
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__end_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__end_date
+msgid "End Date"
+msgstr "Fecha Fin"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__1
+msgid "Ene"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: code:addons/l10n_ec_ats/models/purchase.py:0
+#, python-format
+msgid "Error the document number is incorrect"
+msgstr "Erro el número de documento es incorrecto"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__2
+msgid "Feb"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__auth_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__auth_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__auth_date
+msgid "Fecha de autorizacion"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model,name:l10n_ec_ats.model_ats_foreign_income_type
+#: model:ir.ui.menu,name:l10n_ec_ats.foreign_income_type_menu
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.foreign_income_type_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.foreign_income_type_tree_view
+msgid "Foreign Income Type"
+msgstr "Tipos de Ingresos del Exterior"
+
+#. module: l10n_ec_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_ats_form
+msgid "Generar ATS"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.ui.menu,name:l10n_ec_ats.menu_view_ats_form
+msgid "Generate ATS"
+msgstr "Generar ATS"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_res_country__id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model,name:l10n_ec_ats.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__7
+msgid "Jul"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__6
+msgid "Jun"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move____last_update
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec____last_update
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type____last_update
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens____last_update
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_res_country____last_update
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax____last_update
+msgid "Last Modified on"
+msgstr "Modificada por última vez"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__write_uid
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__write_uid
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__write_uid
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por última vez"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__write_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__write_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__write_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__3
+msgid "Mar"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__5
+msgid "May"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_ats_form
+msgid "Mes :"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.actions.act_window,name:l10n_ec_ats.foreign_income_type_act_window
+msgid "ModelTitle"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__month
+msgid "Month"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__move_ids
+msgid "Move"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__name
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__name
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_sustents_tax__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__11
+msgid "Nov"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_extension_account_move_search_tree_inherit
+msgid "N° Document"
+msgstr "N° de Documento"
+
+#. module: l10n_ec_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.extension_account_move_form
+msgid "N° de Documento"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__10
+msgid "Oct"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__payment_info
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__payment_info
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__payment_info
+msgid "Payment Info"
+msgstr "Información del Pago"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__account_move__payment_info__non-resident
+msgid "Payment To Non-resident"
+msgstr "Pago a no Residente"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__account_move__payment_info__resident
+msgid "Payment To Resident"
+msgstr "Pago a Residente"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields.selection,name:l10n_ec_ats.selection__ats_ec__month__9
+msgid "Sep"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__start_date
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__start_date
+msgid "Start Date"
+msgstr "Fecha Inicio"
+
+#. module: l10n_ec_ats
+#: model:ir.actions.act_window,name:l10n_ec_ats.action_sustents_tax
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_sustents_tax_form
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_sustents_tax_tree
+msgid "Sustento"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__sustento_id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__sustento_id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__sustento_id
+msgid "Sustento Tributario"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.ui.menu,name:l10n_ec_ats.menu_action_sustents_tax
+msgid "Sustentos Tributarios"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.actions.act_window,name:l10n_ec_ats.tax_havens_act_window
+#: model:ir.model,name:l10n_ec_ats.model_ats_tax_havens
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__is_tax_havens
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__is_tax_havens
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__is_tax_havens
+#: model:ir.ui.menu,name:l10n_ec_ats.tax_havens_menu
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.extension_account_move_form
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.tax_havens_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.tax_havens_tree_view
+msgid "Tax Havens"
+msgstr "Paraíso Fiscal"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_bank_statement_line__tax_heavens_id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_move__tax_heavens_id
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_account_payment__tax_heavens_id
+msgid "Tax Havens List"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.view_sustents_tax_form
+msgid "Title"
+msgstr "Título"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_foreign_income_type__value
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_tax_havens__value
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.foreign_income_type_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_ec_ats.tax_havens_form_view
+msgid "Value"
+msgstr "Código"
+
+#. module: l10n_ec_ats
+#: model:ir.model.fields,field_description:l10n_ec_ats.field_ats_ec__year
+msgid "Year"
+msgstr "Año"
+
+#. module: l10n_ec_ats
+#: model:ir.model,name:l10n_ec_ats.model_ats_ec
+msgid "ats.ec"
+msgstr ""
+
+#. module: l10n_ec_ats
+#: model:ir.model,name:l10n_ec_ats.model_sustents_tax
+msgid "sustents.tax"
+msgstr ""

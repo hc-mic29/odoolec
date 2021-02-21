@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+          id="100_ride"
+          model="account.move"
+          string="Ride"
+          report_type="qweb-pdf"
+          name="l10n_ec_ein.report_einvoice"/>
+
+        <template id="report_einvoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                        <t t-call="web.basic_layout">
+                          <div class="page">
+                                    <style type="text/css">
+                                        .redondo {
+                                        text-align: left;
+                                        border-style: solid;
+                                        border-width: 2px;
+                                        border-radius:22px;
+                                        width:440px
+                                        }
+                                    </style>
+                                    <style type="text/css">
+                                        .redondo2 {
+                                        text-align: left;
+                                        border-style: solid;
+                                        border-width: 2px;
+                                        border-radius:22px;
+                                        width:440px;
+                                        height:180px
+                                        }
+                                    </style>
+                                <div class="row">
+                                    <div class="logo">
+                                        <img t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)" style="width: 330px; height: 180px; text-align: left;"/>
+                                        <div class="redondo2" style="margin-left: 15px">
+                                            <br/>
+                                            <br/>
+                                                <h4 style="margin-left: 15px"><span t-esc="res_company.name"/></h4>
+                                                <span style="margin-left: 15px"><strong>DIRECCION: </strong></span><strong></strong><span t-esc="res_company.street"/><br/>
+                                                <span style="margin-left: 15px"><strong>Contribuyente Especial Nro.: </strong></span>
+                                                <span style="margin-left: 15px" t-esc="res_company.is_special_taxpayer"/><br/>
+                                                <span style="margin-left: 15px"><strong>Obligado a Llevar contabilidad: </strong><span t-esc="res_company.is_force_keep_accounting"/></span>
+                                        </div>
+                                    </div>
+                                   <div class="redondo" style="margin-left: 110px">
+                                       <br/>
+                                       <br/>
+                                        <span style="font-size: 14px;margin-left: 15px"><strong>R.U.C.: </strong></span> <span style="font-size: 14px" t-esc="res_company.partner_id.vat"/><br/>
+                                        <span><h4 style="margin-left: 15px">FACTURA</h4></span>
+                                        <span style="margin-left: 15px"><strong>NÚMERO</strong> </span><span t-esc="o.name"/><br/>
+                                        <span style="margin-left: 15px"><strong>NÚMERO DE AUTORIZACIÓN</strong> </span><span t-esc="o.sri_authorization.sri_authorization_code"/><br/>
+                                        <span style="margin-left: 15px"><strong>FECHA Y HORA DE AUTORIZACION: </strong></span><span t-esc="o.invoice_date"/><br/>
+                                        <span style="margin-left: 15px"><strong>AMBIENTE: </strong></span><span t-esc="res_company.env_service == '1' and 'PRUEBAS' or 'PRODUCCION'"/><br/>
+                                        <span style="margin-left: 15px"><strong>EMISION: </strong><span/>NORMAL</span><br/>
+                                        <span style="margin-left: 15px"><strong>CLAVE DE ACCESO</strong></span>
+                                            <img style="margin-right: 15px" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1'  %('Code11',o.sri_authorization.sri_authorization_code,450, 60)"/>
+                                    </div>
+                                </div>
+                            <br/>
+                            <div>
+                                <div style="border: 1px solid black;  margin-left: 5px">
+                                    <span><strong>RAZON SOCIAL :</strong></span> <span t-esc="o.partner_id.name.upper()"/>
+                                    <span style="margin-left: 150px"><strong> IDENTIFICACION :</strong></span><span t-esc="o.partner_id.vat"/><br/>
+                                    <span><strong>FECHA DE EMISION :</strong></span> <span t-esc="o.invoice_date"/>
+                                </div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <table  class="table table-bordered">
+                                   <tbody class="sale_tbody">
+                                        <thead>
+                                            <tr>
+                                                <th name="th_description_normal" class="text-center" style="font-size: 12px !important; width: 15px">Codigo</th>
+                                                <th name="th_produc_qty" class="text-center" style="font-size: 12px !important;">Cantidad</th>
+                                                <th name="th_produc_normal" class="text-center" style="font-size: 12px !important; width: 300px">Descripción</th>
+
+                                                <th name="th_produc_pre" class="text-center" style="font-size: 12px !important;">Detalle Adicional</th>
+                                                <th name="th_produc_precio" class="text-center" style="font-size: 12px !important;">Precio Unit.</th>
+                                                 <th name="th_produc_pre_qty" class="text-center" style="font-size: 12px !important; width: 15px">Descuento.</th>
+                                                 <th name="th_produc_pre_qty" class="text-center" style="font-size: 12px !important; width: 15px">Impuesto.</th>
+                                                <th name="th_produc_precio" class="text-center" style="font-size: 12px !important;">Precio <Total></Total></th>
+                                            </tr>
+                                        </thead>
+                                        <t t-if="o.invoice_line_ids">
+                                            <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                                <t t-if="line">
+                                                    <td style="font-size: 12px !important;">
+                                                        <span t-field="line.product_id.default_code" />
+                                                    </td>
+                                                    <td style="font-size: 12px !important;"  align="right">
+                                                        <span t-field="line.quantity" align="right"/>
+                                                    </td>
+                                                    <td style="font-size: 12px !important;">
+                                                        <span t-field="line.product_id.name" />
+                                                    </td>
+                                                    <td style="font-size: 12px !important;">
+                                                        <span/>
+                                                    </td>
+                                                    <td style="font-size: 12px !important;">
+                                                         <span t-esc="'{0:,.2f}'.format(float(line.price_unit))" align="right"/>
+                                                    </td>
+                                                    <td style="font-size: 12px !important;">
+                                                       <span t-field="line.discount" />
+                                                    </td>
+                                                    <td style="font-size: 12px !important;">
+                                                       <span t-field="line.tax_ids" />
+                                                    </td>
+                                                    <td style="font-size: 12px" align="right">
+                                                        <span t-esc="'{0:,.2f}'.format(float(line.price_subtotal))" align="right"/>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                   </tbody>
+                                </table>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-xs-7" style="margin-left: 15px;border: 1px solid black" >
+                                        <span style="margin-left: 15px"><strong>Información Adicional</strong></span><br/><br/>
+                                        <span style="margin-left: 15px"><strong>Dirección: </strong></span><span t-esc="o.partner_id.street or '**'"/><br/>
+                                        <span style="margin-left: 15px"><strong>Teléfono: </strong></span><span t-esc="o.partner_id.phone or '**'"/><br/>
+                                        <span style="margin-left: 15px"><strong>Email: </strong></span><span t-esc="o.partner_id.email"/><br/>
+                                    </div>
+                                    <div class="col-xs-5" style="margin-left: 500px;">
+                                        <div class="row" style="text-align: right;">
+                                            <div class="col-xs-7" style="border-bottom: 1px solid darkgray; padding-left: 0px;">
+                                                <span><strong>Subtotal</strong></span>
+                                            </div>
+                                            <div class="col-xs-5" style="border-bottom: 1px solid darkgray;">
+                                            <span t-field="o.amount_untaxed"
+                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="text-align: right;">
+                                            <div class="col-xs-7" style="border-bottom: 1px solid darkgray; padding-left: 0px;">
+                                                <strong><span>IVA 12%</span></strong>
+                                            </div>
+                                            <div class="col-xs-5" style="border-bottom: 1px solid darkgray;">
+                                                <span t-field="o.amount_tax"/>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="text-align: right;">
+                                            <div class="col-xs-7" style="border-bottom: 1px solid darkgray; padding-left: 0px;">
+                                                <strong><span>TOTAL</span></strong>
+                                            </div>
+                                            <div class="col-xs-5" style="border-bottom: 1px solid darkgray;">
+                                                <span t-field="o.amount_total"
+                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </t>
+                    </t>
+                </t>
+        </template>
+    </data>
+</odoo>
